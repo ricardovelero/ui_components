@@ -24,6 +24,10 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
 
 gem "ui_components", path: "../ui_components"
 
+gem "ui_components", git: "https://github.com/ricardovelero/ui_components", branch: "main"
+
+bundle install
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
