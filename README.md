@@ -1,47 +1,100 @@
-# UiComponents
+# UI Components Generator 🧩
 
-TODO: Delete this and the text below, and describe your gem
+Generador personalizado de componentes UI para aplicaciones Ruby on Rails, inspirado en el estilo de diseño de [shadcn/ui](https://ui.shadcn.dev/), con soporte para:
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ui_components`. To experiment with that code, run `bin/console` for an interactive prompt.
+- Componente con atributos
+- Slots (`renders_one`)
+- Template `.html.erb`
+- Archivo de prueba (`RSpec`)
+- Preview visual (`ViewComponent::Preview`)
 
-## Installation
+## 🚀 Instalación
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Agrega esta gema a tu `Gemfile` en cualquier proyecto Rails:
 
-Install the gem and add to the application's Gemfile by executing:
+gem "ui_components", git: "https://github.com/tu_usuario/ui_components", branch: "main"
 
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
-
-## Usage
-
-gem "ui_components", path: "../ui_components"
-
-gem "ui_components", git: "https://github.com/ricardovelero/ui_components", branch: "main"
+Y luego ejecuta:
 
 bundle install
 
-## Development
+# Puedes usar un tag: si prefieres versiones fijas.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Requisitos
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+• Ruby on Rails 7+ (idealmente Rails 8)
+• ViewComponent
+• RSpec (opcional pero recomendado para los tests)
 
-## Contributing
+## Uso
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ui_components. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/ui_components/blob/main/CODE_OF_CONDUCT.md).
+Generar un componente simple:
 
-## License
+bin/rails generate ui:component Button variant size
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+Esto crea:
+• app/components/ui/button_component.rb
+• app/components/ui/button_component.html.erb
+• spec/components/ui/button_component_spec.rb
+• test/components/previews/ui/button_component_preview.rb
 
-## Code of Conduct
+# Soporte para slots
 
-Everyone interacting in the UiComponents project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/ui_components/blob/main/CODE_OF_CONDUCT.md).
+Puedes definir slots usando el prefijo slot::
+
+bin/rails generate ui:component Alert title slot:description slot:footer
+
+## Previews visuales
+
+Para habilitar los previews:
+
+En config/environments/development.rb:
+
+config.view_component.show_previews = true
+config.view_component.preview_paths << Rails.root.join("test/components/previews")
+
+Accede a:
+
+http://localhost:3000/rails/view_components
+
+## Estructura generada
+
+app/
+└── components/
+└── ui/
+└── example_component.rb
+└── example_component.html.erb
+
+spec/
+└── components/
+└── ui/
+└── example_component_spec.rb
+
+test/
+└── components/
+└── previews/
+└── ui/
+└── example_component_preview.rb
+
+## Ejemplo de uso en una vista
+
+<%= render Ui::AlertComponent.new(title: "Atención") do |c| %>
+<% c.with_description { "Este es un mensaje importante." } %>
+<% c.with_footer { "Footer opcional" } %>
+Contenido principal
+<% end %>
+
+## Contribuir
+
+Pull requests y mejoras son bienvenidas.
+
+Si tienes ideas para extender el generador (estilos adicionales, renders_many, scaffolding de UI completo…), ¡escríbelas o colabora!
+
+## Autor
+
+Creado por Ricardo Rodriguez
+Inspirado en shadcn/ui y Tailwind UI.
+
+## Licencia
+
+MIT
