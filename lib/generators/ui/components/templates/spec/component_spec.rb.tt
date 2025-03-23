@@ -1,0 +1,20 @@
+require "rails_helper"
+
+RSpec.describe Ui::<%= class_name %>Component, type: :component do
+  it "renders the component with content" do
+    rendered = render_inline(described_class.new(<%= regular_attributes.map { |a| "#{a}: 'Sample #{a}'" }.join(", ") %>)) do |component|
+<% slot_attributes.each do |slot| -%>
+      component.with_<%= slot %> { "Custom <%= slot.capitalize %>" }
+<% end -%>
+      "Main content"
+    end
+
+    expect(rendered.to_html).to include("Main content")
+<% regular_attributes.each do |attr| -%>
+    expect(rendered.to_html).to include("Sample <%= attr %>")
+<% end -%>
+<% slot_attributes.each do |slot| -%>
+    expect(rendered.to_html).to include("Custom <%= slot.capitalize %>")
+<% end -%>
+  end
+end

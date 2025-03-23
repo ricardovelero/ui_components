@@ -1,0 +1,15 @@
+<div class="<%= file_name.dasherize %>-component">
+  <p><%= class_name %> works!</p>
+
+<% regular_attributes.each do |attr| -%>
+  <div><strong><%= attr %>:</strong> <%= @<%= attr %> %></div>
+<% end -%>
+
+<% slot_attributes.each do |slot| -%>
+  <% if <%= slot %> %>
+    <div class="<%= slot %>">
+      <%= <%= slot %> %>
+    </div>
+  <% end %>
+<% end -%>
+</div>

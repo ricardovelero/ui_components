@@ -1,0 +1,10 @@
+class Ui::<%= class_name %>ComponentPreview < ViewComponent::Preview
+  def default
+    render Ui::<%= class_name %>Component.new(<%= regular_attributes.map { |a| "#{a}: 'Sample #{a}'" }.join(", ") %>) do |component|
+<% slot_attributes.each do |slot| -%>
+      component.with_<%= slot %> { "This is the <%= slot %> slot" }
+<% end -%>
+      "Main content goes here"
+    end
+  end
+end

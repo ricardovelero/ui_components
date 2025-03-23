@@ -1,0 +1,17 @@
+module Ui
+  class <%= class_name %>Component < ViewComponent::Base
+<% slot_attributes.each do |slot| -%>
+    renders_one :<%= slot %>
+<% end -%>
+
+<% regular_attributes.each do |attr| -%>
+    attr_reader :<%= attr %>
+<% end -%>
+
+    def initialize(<%= regular_attributes.map { |a| "#{a}:" }.join(', ') %>)
+<% regular_attributes.each do |attr| -%>
+      @<%= attr %> = <%= attr %>
+<% end -%>
+    end
+  end
+end
